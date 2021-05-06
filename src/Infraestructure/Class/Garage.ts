@@ -4,6 +4,7 @@ import { IEspacio } from "../Interfaces/IEspacio";
 import { IGarage } from "../Interfaces/IGarage";
 import { IPisoGarage } from "../Interfaces/IPisoGarage";
 import { IVehiculo } from "../Interfaces/IVehiculo";
+import { Coordenada } from "./Coordenada";
 import { PisoGarage } from "./PisoGarage";
 import { NoVehiculo } from "./Vehiculos/NoVehiculo";
 
@@ -21,13 +22,23 @@ export class Garage implements IGarage {
 
 
     public GetPrimerLugarLibre(): ICoordenada | null {
+        let coordenadaResult: Coordenada = new Coordenada(-1, -1);
+        let mustBreak: boolean = false;
+
         this.PisosGarage.forEach((piso: PisoGarage, i: number) => {
-            piso.Espacios.forEach((espacio: IEspacio, j: number) => {
-                if (!espacio.Ocupado) {
-                    return espacio.Coordenada;
-                }
-            })
+            if(!mustBreak){
+                piso.Espacios.forEach((espacio: IEspacio, j: number) => {
+                    if (!espacio.Ocupado && !mustBreak) {
+                        mustBreak = true;
+                        coordenadaResult = new Coordenada(espacio.Coordenada.Piso, espacio.Coordenada.Espacio);
+                    }
+                })
+            }
         });
+
+        if(mustBreak){
+            return coordenadaResult;
+        }
 
         return null;
     }
@@ -52,7 +63,7 @@ export class Garage implements IGarage {
         return coordenada;
     }
 
-    public GuardarVehiculoPosicion(vehiculo: IVehiculo, piso: number, posicion: number): ICoordenada | null {
+    public GuardarVehiculoPosicion(vehiculo: IVehiculo, piso: number, posicion: number): ICoordenada | null{
         try {
             if (this.checkPosicion(piso, posicion)) {
                 this.PisosGarage[piso].Espacios[posicion].Ocupado = true;
@@ -64,8 +75,7 @@ export class Garage implements IGarage {
             return null;
         }
         catch (e) {
-            console.log(e);
-            return null;
+            return e;
         }
     }
 
