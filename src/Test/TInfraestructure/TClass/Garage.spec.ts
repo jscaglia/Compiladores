@@ -1,5 +1,5 @@
 
-import { assert, expect } from 'chai';
+import { assert } from 'chai';
 import { Coordenada } from '../../../Infraestructure/Class/Coordenada';
 import { Garage } from '../../../Infraestructure/Class/Garage';
 import { Auto } from '../../../Infraestructure/Class/Vehiculos/Auto';

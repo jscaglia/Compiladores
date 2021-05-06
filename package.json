@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -r ts-node/register './src/Test/**/*.ts'",
+    "test-nyc": "nyc -x \"**/Test/**\" --reporter=cobertura --reporter=html mocha -r ts-node/register './src/Test/**/*.ts'",
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js"
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "mocha": "^8.3.2",
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "nyc": "^15.1.0"
   }
 }
