@@ -1,4 +1,5 @@
 import { ICoordenada } from "../Infraestructure/Interfaces/ICoordenada";
+import { IGarage } from "../Infraestructure/Interfaces/IGarage";
 import { IVehiculo } from "../Infraestructure/Interfaces/IVehiculo";
 
 export interface IGarageService {

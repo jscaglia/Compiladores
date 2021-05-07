@@ -1,9 +1,10 @@
 
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 import { Coordenada } from '../../../Infraestructure/Class/Coordenada';
 import { Garage } from '../../../Infraestructure/Class/Garage';
 import { Auto } from '../../../Infraestructure/Class/Vehiculos/Auto';
 import { Camioneta } from '../../../Infraestructure/Class/Vehiculos/Camioneta';
+import { ICoordenada } from '../../../Infraestructure/Interfaces/ICoordenada';
 
 describe('Test Class Garage: ', () => {
     describe('Test Garage constructor: ', () => {
@@ -93,14 +94,33 @@ describe('Test Class Garage: ', () => {
             assert.equal(result?.Piso, coordenadaExpect.Piso);
         });
 
-        // it("Expect Se devuelve mensaje de error cuando no existe la posicion disponible pedida: ", function () {
-        //     var garage = new Garage(1, 5);
-        //     garage.PisosGarage[0].Espacios[2].Ocupado = true;
+        it("Expect Se devuelve mensaje de error cuando no existe la posicion disponible pedida: ", function () {
+            var garage = new Garage(1, 5);
+            garage.PisosGarage[0].Espacios[2].Ocupado = true;
 
-        //     var auto = new Auto();
-        //     var err = new Error('Esa posición está ocupada.');
-        //     expect(garage.GuardarVehiculoPosicion.bind(garage, auto, 0, 2)).to.throw('Esa posición está ocupada.');
-        // });
+            var auto = new Auto();
+            // var err = new Error('Esa posición está ocupada.');   
+            var result = garage.GuardarVehiculoPosicion(auto, 0, 2)         
+            expect(result).equal(null);
+        });
+
+        it("Expect Se devuelve mensaje de error cuando no existe el piso: ", function () {
+            var garage = new Garage(1, 5);
+            garage.PisosGarage[0].Espacios[2].Ocupado = true;
+
+            var auto = new Auto();
+            // var err = new Error('Esa posición está ocupada.');            
+            expect(garage.GuardarVehiculoPosicion(auto, 5, 2)).equal(null);
+        });
+
+        it("Expect Se devuelve mensaje de error cuando no existe el posicion: ", function () {
+            var garage = new Garage(1, 5);
+            garage.PisosGarage[0].Espacios[2].Ocupado = true;
+
+            var auto = new Auto();
+            // var err = new Error('Esa posición está ocupada.');            
+            expect(garage.GuardarVehiculoPosicion(auto, 0, 200)).equal(null);
+        });
     });
 
     describe('Test QuitarVehiculo: ', () => {
@@ -126,13 +146,31 @@ describe('Test Class Garage: ', () => {
             }, 5000);
         });
 
-        // it("Expect Se devuelve mensaje de error cuando no existe la posicion disponible pedida: ", function () {
-        //     var garage = new Garage(1, 5);
-        //     garage.PisosGarage[0].Espacios[2].Ocupado = true;
+        it("Expect Se devuelve mensaje de error cuando no existe la posicion disponible pedida: ", function () {
+            var garage = new Garage(1, 5);
+            garage.PisosGarage[0].Espacios[2].Ocupado = true;
 
-        //     var auto = new Auto();
-        //     var err = new Error('Esa posición está ocupada.');
-        //     expect(garage.GuardarVehiculoPosicion.bind(garage, auto, 0, 2)).to.throw('Esa posición está ocupada.');
-        // });
+            var auto = new Auto();
+            var err = new Error('Esa posición está ocupada.');
+            expect(garage.QuitarVehiculo(0, 2)).equal(0);
+        });
+
+        it("Expect Se devuelve mensaje de error cuando no existe el piso: ", function () {
+            var garage = new Garage(1, 5);
+            garage.PisosGarage[0].Espacios[2].Ocupado = true;
+
+            var auto = new Auto();
+            // var err = new Error('Esa posición está ocupada.');            
+            expect(garage.QuitarVehiculo(5, 2)).equal(0);
+        });
+
+        it("Expect Se devuelve mensaje de error cuando no existe el posicion: ", function () {
+            var garage = new Garage(1, 5);
+            garage.PisosGarage[0].Espacios[2].Ocupado = true;
+
+            var auto = new Auto();
+            // var err = new Error('Esa posición está ocupada.');            
+            expect(garage.QuitarVehiculo(0, 200)).equal(0);
+        });
     });
 });

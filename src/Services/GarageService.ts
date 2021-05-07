@@ -7,13 +7,12 @@ import { IGarageService } from "../IServices/IGarageService";
 export class GarageService implements IGarageService {
     private Garage: IGarage | undefined;
 
-    public constructor() {
+    public constructor(piso: number, posiciones: number) {
         if (!this.Garage) {
-            this.Garage = new Garage(4, 20);
+            this.Garage = new Garage(piso, posiciones);
         }
     }
-
-
+    
     public GetPrimerLugarLibre(): ICoordenada | null {
         if (this.Garage) {
             return this.Garage?.GetPrimerLugarLibre();
@@ -35,7 +34,6 @@ export class GarageService implements IGarageService {
             return null;
         }
         catch (e) {
-            console.log(e);
             return this.GetPrimerLugarLibre();
         }
     }
@@ -48,7 +46,6 @@ export class GarageService implements IGarageService {
             return 0;
         }
         catch (e) {
-            console.log(e);
             return 0;
         }
     }

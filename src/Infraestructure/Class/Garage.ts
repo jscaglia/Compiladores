@@ -97,7 +97,6 @@ export class Garage implements IGarage {
             return monto;
         }
         catch (e) {
-            console.log(e);
             return -1;
         }
     }
@@ -119,7 +118,6 @@ export class Garage implements IGarage {
             return true;
         }
         catch (e) {
-            console.log(e);
             return false;
         }
     }
@@ -140,7 +138,6 @@ export class Garage implements IGarage {
             return true;
         }
         catch (e) {
-            console.log(e);
             return false;
         }
     }
