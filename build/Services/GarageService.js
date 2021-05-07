@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GarageService = void 0;
 var Garage_1 = require("../Infraestructure/Class/Garage");
 var GarageService = /** @class */ (function () {
-    function GarageService() {
+    function GarageService(piso, posiciones) {
         if (!this.Garage) {
-            this.Garage = new Garage_1.Garage(4, 20);
+            this.Garage = new Garage_1.Garage(piso, posiciones);
         }
     }
     GarageService.prototype.GetPrimerLugarLibre = function () {
@@ -29,7 +29,6 @@ var GarageService = /** @class */ (function () {
             return null;
         }
         catch (e) {
-            console.log(e);
             return this.GetPrimerLugarLibre();
         }
     };
@@ -42,7 +41,6 @@ var GarageService = /** @class */ (function () {
             return 0;
         }
         catch (e) {
-            console.log(e);
             return 0;
         }
     };

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Garage = void 0;
+var Coordenada_1 = require("./Coordenada");
 var PisoGarage_1 = require("./PisoGarage");
 var NoVehiculo_1 = require("./Vehiculos/NoVehiculo");
 var Garage = /** @class */ (function () {
@@ -11,13 +12,21 @@ var Garage = /** @class */ (function () {
         }
     }
     Garage.prototype.GetPrimerLugarLibre = function () {
+        var coordenadaResult = new Coordenada_1.Coordenada(-1, -1);
+        var mustBreak = false;
         this.PisosGarage.forEach(function (piso, i) {
-            piso.Espacios.forEach(function (espacio, j) {
-                if (!espacio.Ocupado) {
-                    return espacio.Coordenada;
-                }
-            });
+            if (!mustBreak) {
+                piso.Espacios.forEach(function (espacio, j) {
+                    if (!espacio.Ocupado && !mustBreak) {
+                        mustBreak = true;
+                        coordenadaResult = new Coordenada_1.Coordenada(espacio.Coordenada.Piso, espacio.Coordenada.Espacio);
+                    }
+                });
+            }
         });
+        if (mustBreak) {
+            return coordenadaResult;
+        }
         return null;
     };
     Garage.prototype.GuardarVehiculo = function (vehiculo) {
@@ -48,8 +57,7 @@ var Garage = /** @class */ (function () {
             return null;
         }
         catch (e) {
-            console.log(e);
-            return null;
+            return e;
         }
     };
     Garage.prototype.QuitarVehiculo = function (piso, posicion) {
@@ -65,7 +73,6 @@ var Garage = /** @class */ (function () {
             return monto;
         }
         catch (e) {
-            console.log(e);
             return -1;
         }
     };
@@ -83,7 +90,6 @@ var Garage = /** @class */ (function () {
             return true;
         }
         catch (e) {
-            console.log(e);
             return false;
         }
     };
@@ -101,7 +107,6 @@ var Garage = /** @class */ (function () {
             return true;
         }
         catch (e) {
-            console.log(e);
             return false;
         }
     };

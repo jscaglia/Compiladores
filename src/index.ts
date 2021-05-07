@@ -2,7 +2,7 @@ import { Auto } from "./Infraestructure/Class/Vehiculos/Auto";
 import { IVehiculo } from "./Infraestructure/Interfaces/IVehiculo";
 import { GarageService } from "./Services/GarageService";
 
-let garageService = new GarageService();
+let garageService = new GarageService(4, 20);
 
 let vehiculo: IVehiculo = new Auto();
 

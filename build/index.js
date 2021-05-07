@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Auto_1 = require("./Infraestructure/Class/Vehiculos/Auto");
 var GarageService_1 = require("./Services/GarageService");
-var garageService = new GarageService_1.GarageService();
+var garageService = new GarageService_1.GarageService(4, 20);
 var vehiculo = new Auto_1.Auto();
 var park = garageService.EntrarVehiculo(vehiculo, 1, 2);
 console.log(park);

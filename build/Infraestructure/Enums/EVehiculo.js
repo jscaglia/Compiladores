@@ -1,7 +1,9 @@
 "use strict";
-var Evehiculo;
-(function (Evehiculo) {
-    Evehiculo[Evehiculo["Vacio"] = -1] = "Vacio";
-    Evehiculo[Evehiculo["Auto"] = 1] = "Auto";
-    Evehiculo[Evehiculo["Camioneta"] = 2] = "Camioneta";
-})(Evehiculo || (Evehiculo = {}));
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EVehiculo = void 0;
+var EVehiculo;
+(function (EVehiculo) {
+    EVehiculo[EVehiculo["Vacio"] = -1] = "Vacio";
+    EVehiculo[EVehiculo["Auto"] = 1] = "Auto";
+    EVehiculo[EVehiculo["Camioneta"] = 2] = "Camioneta";
+})(EVehiculo = exports.EVehiculo || (exports.EVehiculo = {}));
