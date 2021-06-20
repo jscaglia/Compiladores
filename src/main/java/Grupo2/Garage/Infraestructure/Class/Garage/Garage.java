@@ -20,7 +20,7 @@ public class Garage {
         }
     }
 
-    public Coordenada GuardarVehiculoPosicion(IVehiculo vehiculo, Integer piso, Integer posicion) {
+    public Coordenada GuardarVehiculoPosicion(IVehiculo vehiculo, Integer piso, Integer posicion) throws GarageException {
         try {
             if (this.checkPosicion(piso, posicion)) {
                 this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado = true;
@@ -30,13 +30,13 @@ public class Garage {
             }
 
             return null;
-        }
-        catch (RuntimeException e) {
-            return null;
+
+        } catch (GarageException e) {
+            throw e;
         }
     }
 
-    public Coordenada GuardarVehiculo(IVehiculo vehiculo) {
+    public Coordenada GuardarVehiculo(IVehiculo vehiculo) throws GarageException {
         Coordenada coordenada = null;
         boolean isBreak = false;
 
@@ -53,10 +53,15 @@ public class Garage {
             }
         }
 
-        return coordenada;
+        if (isBreak) {
+            return coordenada;
+        }
+
+        throw new GarageException("No hay lugares libres");
+
     }
 
-    public Double QuitarVehiculo(Integer piso, Integer posicion) {
+    public Double QuitarVehiculo(Integer piso, Integer posicion) throws GarageException {
         try {
             Double monto = 0.0;
 
@@ -64,20 +69,19 @@ public class Garage {
                 Long fechaFin = new Date().getTime();
                 long duracion = fechaFin - this.PisosGarage.get(piso).Espacios.get(posicion).Tiempo.getTime();
 
-                monto = Math.floor(duracion/60/60) * ((Double)((Auto)this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor).Tarifa);
+                monto = Math.floor(duracion / 60 / 60) * ((Double) ((Auto) this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor).Tarifa);
 
                 this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado = false;
                 this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor = new NoVehiculo();
             }
 
             return monto;
-        }
-        catch (RuntimeException e) {
-            return -1.0;
+        } catch (GarageException e) {
+            throw e;
         }
     }
 
-    public Coordenada GetPrimerLugarLibre() {
+    public Coordenada GetPrimerLugarLibre() throws GarageException {
         Coordenada coordenadaResult = new Coordenada(-1, -1);
         boolean mustBreak = false;
 
@@ -95,47 +99,36 @@ public class Garage {
             return coordenadaResult;
         }
 
-        return null;
+        throw new GarageException("No hay lugares libres");
     }
 
-    private boolean checkPosicion(Integer piso, Integer posicion) {
-        try {
-            if (this.PisosGarage.get(piso) == null) {
-                throw new RuntimeException("No existe ese piso.");
-            }
-
-            if (this.PisosGarage.get(piso).CantidadEspacios < posicion) {
-                throw new RuntimeException("No existe esa posición.");
-            }
-
-            if (this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado) {
-                throw new RuntimeException("Esa posición está ocupada.");
-            }
-            return true;
+    private boolean checkPosicion(Integer piso, Integer posicion) throws GarageException {
+        if (this.PisosGarage.get(piso) == null) {
+            throw new GarageException("No existe ese piso.");
         }
-        catch (RuntimeException e) {
-            throw e;
+
+        if (this.PisosGarage.get(piso).CantidadEspacios < posicion + 1) {
+            throw new GarageException("No existe esa posición.");
         }
+
+        if (this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado) {
+            throw new GarageException("Esa posición está ocupada.");
+        }
+        return true;
     }
 
-    private boolean checkPosicionUnPark(Integer piso, Integer posicion) {
-        try {
-            if (this.PisosGarage.get(piso) == null) {
-                throw new RuntimeException("No existe ese piso.");
-            }
-
-            if (this.PisosGarage.get(piso).CantidadEspacios < posicion) {
-                throw new RuntimeException("No existe esa posición.");
-            }
-
-            if (!this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado) {
-                throw new RuntimeException("Este espacio ya está vacio.");
-            }
-
-            return true;
+    private boolean checkPosicionUnPark(Integer piso, Integer posicion) throws GarageException {
+        if (this.PisosGarage.get(piso) == null) {
+            throw new GarageException("No existe ese piso.");
         }
-        catch (RuntimeException e) {
-            return false;
+
+        if (this.PisosGarage.get(piso).CantidadEspacios < posicion + 1) {
+            throw new GarageException("No existe esa posición.");
         }
+
+        if (!this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado) {
+            throw new GarageException("Este espacio ya está vacio.");
+        }
+        return true;
     }
 }
