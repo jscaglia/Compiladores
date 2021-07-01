@@ -21,7 +21,6 @@ public class GarageController {
     public ResponseEntity<Coordenada> GetPrimerLugarLibre() throws GarageException {
         try {
             return ResponseEntity.ok(garageService.GetPrimerLugarLibre());
-
         } catch (GarageException ex) {
             throw ex;
         }
