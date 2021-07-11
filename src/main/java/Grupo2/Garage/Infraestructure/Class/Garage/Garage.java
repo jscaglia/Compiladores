@@ -1,9 +1,12 @@
 package Grupo2.Garage.Infraestructure.Class.Garage;
 
+import Grupo2.Garage.Infraestructure.Class.GarageEntity;
 import Grupo2.Garage.Infraestructure.Class.Vehiculos.Auto;
 import Grupo2.Garage.Infraestructure.Class.Vehiculos.NoVehiculo;
+import Grupo2.Garage.Infraestructure.Enums.EVehiculo;
 import Grupo2.Garage.Infraestructure.Exceptions.GarageException;
 import Grupo2.Garage.Infraestructure.Interfaces.IVehiculo;
+
 import lombok.var;
 
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ public class Garage {
 
         for (var i = 0; i < piso; i++) {
             this.PisosGarage.add(i, new PisoGarage(espacios, i));
-        }
+        };
     }
 
     public Coordenada GuardarVehiculoPosicion(IVehiculo vehiculo, Integer piso, Integer posicion) throws GarageException {
@@ -26,6 +29,7 @@ public class Garage {
                 this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado = true;
                 this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor = vehiculo;
                 this.PisosGarage.get(piso).Espacios.get(posicion).Tiempo = new Date();
+
                 return this.PisosGarage.get(piso).Espacios.get(posicion).Coordenada;
             }
 
@@ -54,7 +58,6 @@ public class Garage {
         }
 
         if (isBreak) {
-
             return coordenada;
         }
 

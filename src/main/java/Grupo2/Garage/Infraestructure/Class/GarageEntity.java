@@ -19,8 +19,8 @@ public class GarageEntity {
     @Column(name = "patente")
     private String patente;
 
-    @Column(name = "tipoAuto")
-    private String tipoAuto;
+    @Column(name = "tipo_auto")
+    private String tipo_auto;
 
     public GarageEntity() {
 
@@ -28,14 +28,6 @@ public class GarageEntity {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getPiso() {
-        return piso;
     }
 
     public void setPiso(Integer piso) {
@@ -59,10 +51,10 @@ public class GarageEntity {
     }
 
     public String getTipoAuto() {
-        return tipoAuto;
+        return tipo_auto;
     }
 
     public void setTipoAuto(String tipoAuto) {
-        this.tipoAuto = tipoAuto;
+        this.tipo_auto = tipoAuto;
     }
 }

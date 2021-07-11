@@ -3,13 +3,21 @@ package Grupo2.Garage.Services;
 import Grupo2.Garage.IServices.IGarageService;
 import Grupo2.Garage.Infraestructure.Class.Garage.Coordenada;
 import Grupo2.Garage.Infraestructure.Class.Garage.Garage;
+import Grupo2.Garage.Infraestructure.Class.GarageEntity;
+import Grupo2.Garage.Infraestructure.Class.Vehiculos.Auto;
+import Grupo2.Garage.Infraestructure.Enums.EVehiculo;
 import Grupo2.Garage.Infraestructure.Exceptions.GarageException;
 import Grupo2.Garage.Infraestructure.Interfaces.IVehiculo;
+import Grupo2.Garage.Repository.IGarageRepository;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GarageService implements IGarageService {
+    @Autowired
+    private IGarageRepository garageRepo;
+
     private Garage garage;
 
     private Garage getGarage() {
@@ -22,7 +30,17 @@ public class GarageService implements IGarageService {
     @Override
     public Coordenada GuardarVehiculoPosicion(IVehiculo vehiculo, Integer piso, Integer posicion) throws GarageException {
         try {
-            return getGarage().GuardarVehiculoPosicion(vehiculo, piso, posicion);
+            var result = getGarage().GuardarVehiculoPosicion(vehiculo, piso, posicion);
+
+            GarageEntity garageEntity = new GarageEntity();
+
+            garageEntity.setPiso(0);
+            garageEntity.setPosicion(0);
+            garageEntity.setPatente("AAA123");
+            garageEntity.setTipoAuto("AUTOMOVIL");
+            this.garageRepo.save(garageEntity);
+
+            return result;
         } catch (GarageException e) {
             throw e;
         }
@@ -31,7 +49,17 @@ public class GarageService implements IGarageService {
     @Override
     public Coordenada GuardarVehiculo(IVehiculo vehiculo) throws GarageException {
         try {
-        return getGarage().GuardarVehiculo(vehiculo);
+        var result = getGarage().GuardarVehiculo(vehiculo);
+
+            GarageEntity garageEntity = new GarageEntity();
+
+            garageEntity.setPiso(0);
+            garageEntity.setPosicion(0);
+            garageEntity.setPatente("AAA123");
+            garageEntity.setTipoAuto("AUTOMOVIL");
+            this.garageRepo.save(garageEntity);
+
+        return result;
         } catch (GarageException e) {
             throw e;
         }
