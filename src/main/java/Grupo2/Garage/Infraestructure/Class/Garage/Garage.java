@@ -54,6 +54,7 @@ public class Garage {
         }
 
         if (isBreak) {
+
             return coordenada;
         }
 
