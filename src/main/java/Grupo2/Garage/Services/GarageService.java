@@ -34,10 +34,10 @@ public class GarageService implements IGarageService {
 
             GarageEntity garageEntity = new GarageEntity();
 
-            garageEntity.setPiso(0);
-            garageEntity.setPosicion(0);
-            garageEntity.setPatente("AAA123");
-            garageEntity.setTipoAuto("AUTOMOVIL");
+            garageEntity.setPiso(piso);
+            garageEntity.setPosicion(posicion);
+            garageEntity.setPatente(vehiculo.Patente);
+            garageEntity.setTipoAuto(((EVehiculo)((Auto)vehiculo).TipoVehiculo).name());
             this.garageRepo.save(garageEntity);
 
             return result;
@@ -53,10 +53,10 @@ public class GarageService implements IGarageService {
 
             GarageEntity garageEntity = new GarageEntity();
 
-            garageEntity.setPiso(0);
-            garageEntity.setPosicion(0);
-            garageEntity.setPatente("AAA123");
-            garageEntity.setTipoAuto("AUTOMOVIL");
+            garageEntity.setPiso(result.Piso);
+            garageEntity.setPosicion(result.Espacio);
+            garageEntity.setPatente(((Auto)vehiculo).Patente);
+            garageEntity.setTipoAuto(((EVehiculo)((Auto)vehiculo).TipoVehiculo).name());
             this.garageRepo.save(garageEntity);
 
         return result;
