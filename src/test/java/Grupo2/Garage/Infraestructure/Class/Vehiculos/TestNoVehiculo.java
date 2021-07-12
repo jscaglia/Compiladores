@@ -12,7 +12,7 @@ public class TestNoVehiculo {
     void Constructor()  {
         NoVehiculo noVehiculo = new NoVehiculo();
 
-        assertEquals(noVehiculo.TipoVehiculo, EVehiculo.Vacio);
+        assertEquals(noVehiculo.TipoVehiculo, EVehiculo.VACIO);
         assertEquals(noVehiculo.Tarifa, 0);
         assertEquals(noVehiculo.Patente, "");
     }

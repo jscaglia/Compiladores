@@ -1,9 +1,15 @@
 package Grupo2.Garage.Controllers;
 
 import Grupo2.Garage.IServices.IGarageService;
+import Grupo2.Garage.Infraestructure.Class.EntryParams.EntryAutomovil;
 import Grupo2.Garage.Infraestructure.Class.Garage.Coordenada;
+import Grupo2.Garage.Infraestructure.Class.Garage.Espacio;
 import Grupo2.Garage.Infraestructure.Class.Vehiculos.Auto;
+import Grupo2.Garage.Infraestructure.Class.Vehiculos.Camioneta;
+import Grupo2.Garage.Infraestructure.Enums.EVehiculo;
 import Grupo2.Garage.Infraestructure.Exceptions.GarageException;
+import Grupo2.Garage.Infraestructure.Interfaces.IVehiculo;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +34,15 @@ public class GarageController {
 
     @PostMapping(value = "guardarVehiculoPosicion")
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Coordenada> GuardarVehiculoPosicion(Integer piso, Integer posicion) throws GarageException {
+    public ResponseEntity<Coordenada> GuardarVehiculoPosicion(@RequestBody EntryAutomovil vehiculo) throws GarageException {
         try {
-            Auto vehiculo = new Auto("AAA123");
-            return ResponseEntity.ok(garageService.GuardarVehiculoPosicion(vehiculo, piso, posicion));
+            IVehiculo miVehiculo;
+            if(vehiculo.Vehiculo == EVehiculo.AUTOMOVIL){
+                miVehiculo = new Auto(vehiculo.Patente);
+            } else{
+                miVehiculo = new Camioneta(vehiculo.Patente);
+            }
+            return ResponseEntity.ok(garageService.GuardarVehiculoPosicion(miVehiculo, vehiculo.Coordenada.Piso, vehiculo.Coordenada.Espacio));
         } catch (GarageException ex) {
             throw ex;
         }
@@ -39,10 +50,16 @@ public class GarageController {
 
     @PostMapping(value = "guardarVehiculo")
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Coordenada> GuardarVehiculo() throws GarageException {
+    public ResponseEntity<Coordenada> GuardarVehiculo(String patente, EVehiculo vehiculo) throws GarageException {
         try {
-            Auto vehiculo = new Auto("AAA444");
-            return ResponseEntity.ok(garageService.GuardarVehiculo(vehiculo));
+            IVehiculo miVehiculo;
+            if(vehiculo == EVehiculo.AUTOMOVIL){
+                miVehiculo = new Auto(patente);
+            } else{
+                miVehiculo = new Camioneta(patente);
+            }
+
+            return ResponseEntity.ok(garageService.GuardarVehiculo(miVehiculo));
         } catch (GarageException ex) {
             throw ex;
         }

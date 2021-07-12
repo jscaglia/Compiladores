@@ -9,8 +9,13 @@ public class Camioneta implements IVehiculo {
     public String Patente;
 
     public Camioneta(String patente){
-        this.TipoVehiculo = EVehiculo.Camioneta;
+        this.TipoVehiculo = EVehiculo.CAMIONETA;
         this.Tarifa = 15.0;
         this.Patente = patente;
+    }
+
+    @Override
+    public String getTipoVehiculo() {
+        return this.TipoVehiculo.name();
     }
 }

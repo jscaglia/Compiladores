@@ -5,6 +5,7 @@ import Grupo2.Garage.Infraestructure.Class.Garage.Coordenada;
 import Grupo2.Garage.Infraestructure.Class.Garage.Garage;
 import Grupo2.Garage.Infraestructure.Class.GarageEntity;
 import Grupo2.Garage.Infraestructure.Class.Vehiculos.Auto;
+import Grupo2.Garage.Infraestructure.Class.Vehiculos.Camioneta;
 import Grupo2.Garage.Infraestructure.Enums.EVehiculo;
 import Grupo2.Garage.Infraestructure.Exceptions.GarageException;
 import Grupo2.Garage.Infraestructure.Interfaces.IVehiculo;
@@ -36,8 +37,16 @@ public class GarageService implements IGarageService {
 
             garageEntity.setPiso(piso);
             garageEntity.setPosicion(posicion);
-            garageEntity.setPatente(vehiculo.Patente);
-            garageEntity.setTipoAuto(((EVehiculo)((Auto)vehiculo).TipoVehiculo).name());
+
+
+            if(vehiculo.getTipoVehiculo() == EVehiculo.AUTOMOVIL.name()){
+                garageEntity.setPatente(((Auto)vehiculo).Patente);
+                garageEntity.setTipoAuto(((EVehiculo)((Auto)vehiculo).TipoVehiculo).name());
+            } else{
+                garageEntity.setPatente(((Camioneta)vehiculo).Patente);
+                garageEntity.setTipoAuto(((EVehiculo)((Camioneta)vehiculo).TipoVehiculo).name());
+            }
+
             this.garageRepo.save(garageEntity);
 
             return result;
@@ -55,8 +64,16 @@ public class GarageService implements IGarageService {
 
             garageEntity.setPiso(result.Piso);
             garageEntity.setPosicion(result.Espacio);
-            garageEntity.setPatente(((Auto)vehiculo).Patente);
-            garageEntity.setTipoAuto(((EVehiculo)((Auto)vehiculo).TipoVehiculo).name());
+
+
+            if(vehiculo.getTipoVehiculo() == EVehiculo.AUTOMOVIL.name()){
+                garageEntity.setPatente(((Auto)vehiculo).Patente);
+                garageEntity.setTipoAuto(((EVehiculo)((Auto)vehiculo).TipoVehiculo).name());
+            } else{
+                garageEntity.setPatente(((Camioneta)vehiculo).Patente);
+                garageEntity.setTipoAuto(((EVehiculo)((Camioneta)vehiculo).TipoVehiculo).name());
+            }
+
             this.garageRepo.save(garageEntity);
 
         return result;

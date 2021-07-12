@@ -6,4 +6,6 @@ public interface IVehiculo {
     public EVehiculo TipoVehiculo = null;
     public Double Tarifa = 0.0;
     public String Patente = "";
+
+    public String getTipoVehiculo();
 }

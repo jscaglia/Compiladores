@@ -9,8 +9,13 @@ public class Auto implements IVehiculo {
     public String Patente;
 
     public Auto(String patente){
-        this.TipoVehiculo = EVehiculo.Automovil;
+        this.TipoVehiculo = EVehiculo.AUTOMOVIL;
         this.Tarifa = 10.0;
         this.Patente = patente;
+    }
+
+    @Override
+    public String getTipoVehiculo() {
+        return this.TipoVehiculo.name();
     }
 }
