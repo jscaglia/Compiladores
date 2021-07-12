@@ -14,6 +14,8 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class GarageService implements IGarageService {
     @Autowired
@@ -34,6 +36,7 @@ public class GarageService implements IGarageService {
             var result = getGarage().GuardarVehiculoPosicion(vehiculo, piso, posicion);
 
             GarageEntity garageEntity = new GarageEntity();
+            Date dt = new Date();
 
             garageEntity.setPiso(piso);
             garageEntity.setPosicion(posicion);
@@ -41,9 +44,11 @@ public class GarageService implements IGarageService {
 
             if(vehiculo.getTipoVehiculo() == EVehiculo.AUTOMOVIL.name()){
                 garageEntity.setPatente(((Auto)vehiculo).Patente);
+                garageEntity.setFecha_ingreso(dt);
                 garageEntity.setTipoAuto(((EVehiculo)((Auto)vehiculo).TipoVehiculo).name());
             } else{
                 garageEntity.setPatente(((Camioneta)vehiculo).Patente);
+                garageEntity.setFecha_ingreso(dt);
                 garageEntity.setTipoAuto(((EVehiculo)((Camioneta)vehiculo).TipoVehiculo).name());
             }
 
@@ -61,6 +66,7 @@ public class GarageService implements IGarageService {
         var result = getGarage().GuardarVehiculo(vehiculo);
 
             GarageEntity garageEntity = new GarageEntity();
+            Date dt = new Date();
 
             garageEntity.setPiso(result.Piso);
             garageEntity.setPosicion(result.Espacio);
@@ -68,9 +74,11 @@ public class GarageService implements IGarageService {
 
             if(vehiculo.getTipoVehiculo() == EVehiculo.AUTOMOVIL.name()){
                 garageEntity.setPatente(((Auto)vehiculo).Patente);
+                garageEntity.setFecha_ingreso(dt);
                 garageEntity.setTipoAuto(((EVehiculo)((Auto)vehiculo).TipoVehiculo).name());
             } else{
                 garageEntity.setPatente(((Camioneta)vehiculo).Patente);
+                garageEntity.setFecha_ingreso(dt);
                 garageEntity.setTipoAuto(((EVehiculo)((Camioneta)vehiculo).TipoVehiculo).name());
             }
 
@@ -83,9 +91,19 @@ public class GarageService implements IGarageService {
     }
 
     @Override
-    public Double QuitarVehiculo(Integer piso, Integer posicion) throws GarageException {
+    public Double QuitarVehiculo(Integer piso, Integer posicion, String patente) throws GarageException {
         try {
-            return getGarage().QuitarVehiculo(piso, posicion);
+            var result = getGarage().QuitarVehiculo(piso, posicion);
+
+            var vehiculoGarage = this.garageRepo.findByPatente(patente);
+
+            if(vehiculoGarage != null) {
+                this.garageRepo.delete(vehiculoGarage.get());
+            } else{
+                throw new GarageException("La patente no existe en la BBDD");
+            }
+
+            return result;
         } catch (GarageException e) {
             throw e;
         }

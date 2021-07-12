@@ -1,6 +1,7 @@
 package Grupo2.Garage.Infraestructure.Class;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "garage")
@@ -21,6 +22,9 @@ public class GarageEntity {
 
     @Column(name = "tipo_auto")
     private String tipo_auto;
+
+    @Column(name = "fecha_ingreso")
+    private Date fecha_ingreso;
 
     public GarageEntity() {
 
@@ -57,4 +61,8 @@ public class GarageEntity {
     public void setTipoAuto(String tipoAuto) {
         this.tipo_auto = tipoAuto;
     }
+
+    public void setFecha_ingreso(Date fecha_ingreso) {this.fecha_ingreso = fecha_ingreso;}
+
+    public Date getFecha_ingreso() {return fecha_ingreso;}
 }

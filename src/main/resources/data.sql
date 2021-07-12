@@ -6,11 +6,12 @@ CREATE TABLE garage (
       posicion integer,
       patente VARCHAR(255),
       tipo_auto VARCHAR(255),
+      fecha_ingreso DATE,
       primary key (id)
  );
 
-INSERT INTO garage (piso, posicion, patente, tipo_auto) VALUES
-(1, 1, 'AE123FD', 'CAMIONETA'),
-(1, 3, 'CD123AA', 'CAMIONETA'),
-(2, 4, 'LEO123', 'AUTO'),
-(2, 4, 'CHA999', 'AUTO');
+INSERT INTO garage (piso, posicion, patente, tipo_auto, fecha_ingreso) VALUES
+(1, 1, 'AE123FD', 'CAMIONETA','2014-01-28'),
+(1, 3, 'CD123AA', 'CAMIONETA','2014-01-28'),
+(2, 4, 'LEO123', 'AUTO', '2021-07-12'),
+(2, 5, 'CHA999', 'AUTO', '2021-07-12');

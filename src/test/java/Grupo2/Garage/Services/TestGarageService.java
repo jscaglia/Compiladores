@@ -49,7 +49,7 @@ public class TestGarageService {
     void QuitarVehiculo() throws GarageException {
         GarageService garageService = new GarageService();
         garageService.GuardarVehiculoPosicion(new Auto("AAA123"), 1,2);
-        Double result = garageService.QuitarVehiculo(1, 2);
+        Double result = garageService.QuitarVehiculo(1, 2, "AAA123");
         assertEquals(result, 0);
     }
 }

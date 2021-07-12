@@ -67,9 +67,9 @@ public class GarageController {
 
     @PostMapping(value = "quitarVehiculo")
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Double> QuitarVehiculo(Integer piso, Integer posicion) throws GarageException {
+    public ResponseEntity<Double> QuitarVehiculo(Integer piso, Integer posicion, String patente) throws GarageException {
         try {
-            return ResponseEntity.ok(garageService.QuitarVehiculo(piso, posicion));
+            return ResponseEntity.ok(garageService.QuitarVehiculo(piso, posicion, patente));
         } catch (GarageException ex) {
             throw ex;
         }

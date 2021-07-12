@@ -8,6 +8,6 @@ public interface IGarageService {
     public Coordenada GuardarVehiculoPosicion(IVehiculo vehiculo, Integer piso, Integer posicion) throws GarageException;
     public Coordenada GuardarVehiculo(IVehiculo vehiculo ) throws GarageException;
 
-    public Double QuitarVehiculo(Integer piso, Integer posicion) throws GarageException;
+    public Double QuitarVehiculo(Integer piso, Integer posicion, String patente) throws GarageException;
     public Coordenada GetPrimerLugarLibre() throws GarageException;
 }

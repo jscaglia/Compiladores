@@ -76,9 +76,9 @@ public class TestGarageController {
 
     @Test
     public void QuitarVehiculo() throws GarageException {
-        when(this.garageService.QuitarVehiculo(5, 8)).thenReturn(50.5);
+        when(this.garageService.QuitarVehiculo(5, 8, "AAA123")).thenReturn(50.5);
 
-        Double result = this.garageService.QuitarVehiculo(5, 8);
+        Double result = this.garageService.QuitarVehiculo(5, 8, "AAA123");
         assertEquals(50.5, result);
     }
 }

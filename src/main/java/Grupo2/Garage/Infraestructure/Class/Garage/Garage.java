@@ -2,6 +2,7 @@ package Grupo2.Garage.Infraestructure.Class.Garage;
 
 import Grupo2.Garage.Infraestructure.Class.GarageEntity;
 import Grupo2.Garage.Infraestructure.Class.Vehiculos.Auto;
+import Grupo2.Garage.Infraestructure.Class.Vehiculos.Camioneta;
 import Grupo2.Garage.Infraestructure.Class.Vehiculos.NoVehiculo;
 import Grupo2.Garage.Infraestructure.Enums.EVehiculo;
 import Grupo2.Garage.Infraestructure.Exceptions.GarageException;
@@ -73,10 +74,17 @@ public class Garage {
                 Long fechaFin = new Date().getTime();
                 long duracion = fechaFin - this.PisosGarage.get(piso).Espacios.get(posicion).Tiempo.getTime();
 
-                monto = Math.floor(duracion / 60 / 60) * ((Double) ((Auto) this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor).Tarifa);
+                if(this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor.getTipoVehiculo() == EVehiculo.AUTOMOVIL.name()){
+                    monto = Math.floor(duracion / 60 / 60) * ((Double) ((Auto) this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor).Tarifa);
 
-                this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado = false;
-                this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor = new NoVehiculo();
+                    this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado = false;
+                    this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor = new NoVehiculo();
+                } else{
+                    monto = Math.floor(duracion / 60 / 60) * ((Double) ((Camioneta) this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor).Tarifa);
+
+                    this.PisosGarage.get(piso).Espacios.get(posicion).Ocupado = false;
+                    this.PisosGarage.get(piso).Espacios.get(posicion).OcupadoPor = new NoVehiculo();
+                }
             }
 
             return monto;
